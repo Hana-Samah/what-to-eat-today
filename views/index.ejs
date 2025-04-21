@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ماذا آكل اليوم؟</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body data-mealid="<%= meal.idMeal %>">
+    
+    <div class="container">
+        <div class="d-flex justify-content-end mb-3">
+            <button id="toggleDark" class="btn btn-outline-dark">
+                🌓  
+            </button>
+        </div>
+        <h1 class="site-title text-center mb-5 text-dark">🍲 What do I eat today?</h1>
+        
+        <% if (meal) { %>
+            <div class="card meal-card">
+                <img src="<%= meal.strMealThumb %>" class="meal-img" alt="<%= meal.strMeal %>">
+                <div class="card-body text-right">
+                    <h2 class="card-title text-primary"><%= meal.strMeal %></h2>
+                    <div class="meal-tags">
+                        <span class="badge bg-success"><%= meal.strCategory %></span>
+                        <span class="badge bg-info text-dark"><%= meal.strArea %></span>
+                        <% if (meal.strTags) { %>
+                            <% meal.strTags.split(',').forEach(tag => { %>
+                                <span class="badge bg-secondary"><%= tag.trim() %></span>
+                            <% }); %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-5 mb-4">
+                    <div class="ingredients-container">
+                        <h3 class="mb-4 text-warning">🛒 Recipe ingredients:</h3>
+                        <ul class="ingredients-list">
+                            <% for(let i=1; i<=20; i++) { %>
+                                <% if(meal[`strIngredient${i}`] && meal[`strIngredient${i}`].trim() !== '') { %>
+                                    <li>
+                                        <span class="ingredient-text"><%= meal[`strIngredient${i}`] %></span>
+                                        <span class="text-muted measure-text"><%= meal[`strMeasure${i}`] %></span>
+                                    </li>
+                                <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7">
+                    <div class="p-4 rounded shadow-sm bg-white">
+                        <h3 class="mb-4 text-warning">👩‍🍳Preparing the recipe:</h3>
+                        <% if (meal.instructionsSteps && meal.instructionsSteps.length > 0) { %>
+                            <ol class="steps-list">
+                                <% meal.instructionsSteps.forEach(step => { %>
+                                    <li class="step-text"><%= step %></li>
+                                <% }); %>
+                            </ol>
+                        <% } else { %>
+                            <p class="step-text"><%= meal.strInstructions %></p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="shareBtn" class="btn btn-share ">
+                    <i class="fas fa-share-alt"></i> Share
+                </button>
+            </div>
+        <% } %>
+
+        <div class="text-center mt-4">
+            <a href="/" class="btn-primary btn btn-new-meal btn-lg">⟳ Suggest a new meal</a>
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>
