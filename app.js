@@ -3,27 +3,11 @@ const axios = require('axios');
 const app = express();
 const PORT = 3000;
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// EJS
 app.set('view engine', 'ejs');
-
-// كاش مؤقت للترجمة
-const translationsCache = {};
-
-// مسار الترجمة
-app.post('/translate', async (req, res) => {
-    const { text, lang } = req.body;
-    try {
-        translationsCache[text] = `(مترجم) ${text}`;
-        res.json({ translatedText: translationsCache[text] });
-    } catch (error) {
-        res.status(500).json({ error: 'فشل في الترجمة' });
-    }
-});
 
 // الرئيسية
 app.get('/', async (req, res) => {
@@ -43,7 +27,9 @@ app.get('/', async (req, res) => {
     }
 });
 
-// تشغيل السيرفر
 app.listen(PORT, () => {
     console.log(`الموقع يعمل على http://localhost:${PORT}`);
+});
+app.get('/favorites', (req, res) => {
+    res.render('favorites');
 });

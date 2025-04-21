@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What to eat today?</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="/css/style.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What To Eat Today  </title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
-
 <body data-mealid="<%= meal.idMeal %>">
-    <div class="app-container">
-        <!-- Top navigation bar -->
+    <div id="capture-area" class="app-container">
         <nav class="app-navbar">
-            <h1 class="app-title">Today's Recipe</h1>
+            <h1 class="app-title">What To Eat Today</h1>
             <button id="toggleDark" class="theme-toggle" aria-label="Toggle dark mode">
                 <i class="fas fa-moon"></i>
                 <i class="fas fa-sun"></i>
@@ -23,7 +20,6 @@
         </nav>
 
         <% if (meal) { %>
-            <!-- Main recipe card -->
             <div class="main-recipe-card fade-in">
                 <div class="recipe-image-container">
                     <img src="<%= meal.strMealThumb %>" class="recipe-image" alt="<%= meal.strMeal %>">
@@ -39,44 +35,43 @@
                             <% if (meal.strTags) { %>
                                 <span class="recipe-tags">
                                     <i class="fas fa-tags"></i>
-                                    <% meal.strTags.split(',').forEach(tag=> { %>
+                                    <% meal.strTags.split(',').forEach(tag => { %>
                                         <span class="tag"><%= tag.trim() %></span>
-                                    <% }); %>
+                                    <% }) %>
                                 </span>
                             <% } %>
                         </div>
+                        
                     </div>
                 </div>
             </div>
 
-            <!-- Ingredients and instructions section -->
             <div class="recipe-details-container">
                 <div class="ingredients-section">
                     <div class="section-header">
                         <i class="fas fa-shopping-basket"></i>
-                        <h3>Ingredients</h3>
+                        <h3>ingredients</h3>
                     </div>
                     <ul class="ingredients-list">
-                        <% for(let i=1; i<=20; i++) { %>
-                            <% if(meal[`strIngredient${i}`] && meal[`strIngredient${i}`].trim() !=='' ) { %>
-                                <li class="ingredient-item">
-                                    <span class="ingredient-name"><%= meal[`strIngredient${i}`] %></span>
-                                    <span class="ingredient-amount"><%= meal[`strMeasure${i}`] %></span>
-                                </li>
-                            <% } %>
-                        <% } %>
+                        <% for(let i=1; i<=20; i++) { 
+                            if(meal[`strIngredient${i}`] && meal[`strIngredient${i}`].trim() !== '') { %>
+                            <li class="ingredient-item">
+                                <span class="ingredient-name"><%= meal[`strIngredient${i}`] %></span>
+                                <span class="ingredient-amount"><%= meal[`strMeasure${i}`] %></span>
+                            </li>
+                        <% }} %>
                     </ul>
                 </div>
 
                 <div class="instructions-section">
                     <div class="section-header">
                         <i class="fas fa-book-open"></i>
-                        <h3>Preparation Method</h3>
+                        <h3>instructions </h3>
                     </div>
                     <div class="instructions-content">
-                        <% if (meal.instructionsSteps && meal.instructionsSteps.length> 0) { %>
+                        <% if (meal.instructionsSteps && meal.instructionsSteps.length > 0) { %>
                             <ol class="steps-list">
-                                <% meal.instructionsSteps.forEach(step=> { %>
+                                <% meal.instructionsSteps.forEach(step => { %>
                                     <li class="step-item"><%= step %></li>
                                 <% }); %>
                             </ol>
@@ -87,13 +82,16 @@
                 </div>
             </div>
         <% } %>
+
         <div class="text-center mt-4 new-recipe-btn-container">
-            <a href="/" class=" new-recipe-btn btn-new-meal btn-lg  btn btn-new-meal btn-lg fas fa-random">Suggest a new meal</a>
+            <a href="/" class="new-recipe-btn btn-lg"><i class="fas fa-random"></i> New Recipe</a>
         </div>
+
+        <button id="shareImageBtn" class="new-recipe-btn">
+            <i class="fas fa-share-alt"></i> Share Recipe
+          </button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/script.js"></script>
 </body>
-
 </html>

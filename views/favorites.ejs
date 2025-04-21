@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المفضلة - ماذا آكل اليوم؟</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-navbar">
+            <h1 class="app-title">المفضلة 🍽️</h1>
+            <button id="toggleDark" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+
+        <div id="favorites-container" class="favorites-grid">
+            <!-- سيتم تعبئة العناصر هنا من LocalStorage -->
+        </div>
+
+        <div class="new-recipe-btn-container">
+            <a href="/" class="new-recipe-btn">
+                <i class="fas fa-arrow-right"></i>
+                عودة إلى الصفحة الرئيسية
+            </a>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+
+            const container = document.getElementById('favorites-container');
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+            if (favorites.length === 0) {
+                container.innerHTML = '<p>لا توجد وصفات مفضلة بعد.</p>';
+                return;
+            }
+
+            favorites.forEach(meal => {
+                const card = document.createElement('div');
+                card.className = 'meal-card fade-in visible';
+
+                card.innerHTML = `
+                    <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="recipe-image">
+                    <div class="recipe-overlay">
+                        <h2 class="recipe-title">${meal.strMeal}</h2>
+                        <div class="recipe-meta">
+                            <span><i class="fas fa-globe"></i> ${meal.strArea}</span>
+                            <span><i class="fas fa-utensils"></i> ${meal.strCategory}</span>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        });
+
+        document.getElementById('toggleDark')?.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'true' : 'false');
+        });
+    </script>
+</body>
+</html>

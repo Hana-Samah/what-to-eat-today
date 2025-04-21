@@ -110,7 +110,7 @@ body {
 
 .recipe-title {
     font-size: 2rem;
-    margin: 0 0 10px 0;
+    margin: 0 0 0 0;
     color: white;
 }
 
@@ -255,3 +255,42 @@ body {
 .fade-in:nth-child(1) { animation-delay: 0.1s; }
 .fade-in:nth-child(2) { animation-delay: 0.3s; }
 .fade-in:nth-child(3) { animation-delay: 0.5s; }
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle i {
+    position: absolute;
+    transition: opacity 0.3s;
+}
+
+.fa-moon { opacity: 1; }
+.fa-sun { opacity: 0; }
+
+.dark-mode .fa-moon { opacity: 0; }
+.dark-mode .fa-sun { opacity: 1; }
+.favorite-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.favorite-btn:hover {
+    background-color: #38baba;
+}
